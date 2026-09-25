@@ -111,9 +111,9 @@ function Sidebar({ open, onClose }: { open: boolean; onClose: () => void }) {
 
 function MetricCard({ icon, label, value, note, positive }: { icon: ReactNode; label: string; value: string; note: ReactNode; positive?: boolean }) {
   return (
-    <article className="flex min-h-28 items-center gap-4 rounded-md border border-border bg-card px-4 py-4 shadow-card">
-      <div className="grid size-12 shrink-0 place-items-center rounded-md bg-icon text-primary">{icon}</div>
-      <div className="min-w-0"><p className="text-sm text-muted-foreground">{label}</p><strong className="mt-0.5 block truncate text-[26px] leading-none text-foreground">{value}</strong><div className={`mt-2 flex items-center gap-1 text-xs ${positive ? "font-semibold text-success" : "text-muted-foreground"}`}>{note}</div></div>
+    <article className="flex min-h-24 items-center gap-3 rounded-md border border-border bg-card px-4 py-3 shadow-card">
+      <div className="grid size-10 shrink-0 place-items-center rounded-md bg-icon text-primary">{icon}</div>
+      <div className="min-w-0"><p className="text-[13px] text-muted-foreground">{label}</p><strong className="mt-0.5 block truncate text-[22px] font-semibold leading-none text-foreground">{value}</strong><div className={`mt-2 flex items-center gap-1 text-[11px] ${positive ? "font-medium text-success" : "text-muted-foreground"}`}>{note}</div></div>
     </article>
   );
 }
@@ -122,7 +122,7 @@ function Chart() {
   return (
     <section className="rounded-md border border-border bg-card p-4 shadow-card lg:col-span-7">
       <div className="mb-4 grid grid-cols-[minmax(0,1fr)_auto] items-center gap-3">
-        <h2 className="truncate text-base font-bold">Receitas x Despesas</h2>
+        <h2 className="truncate text-[15px] font-semibold">Receitas x Despesas</h2>
         <div className="flex gap-4 text-xs"><span className="flex items-center gap-1.5"><i className="size-2.5 rounded-full bg-primary" />Receitas</span><span className="flex items-center gap-1.5"><i className="size-2.5 rounded-full bg-brand-soft" />Despesas</span></div>
       </div>
       <div className="grid h-44 grid-cols-[50px_1fr] gap-2 sm:h-48">
@@ -136,11 +136,11 @@ function Chart() {
 }
 
 function Summary() {
-  return <section className="rounded-md border border-border bg-card p-4 shadow-card lg:col-span-3"><div className="flex items-center justify-between"><h2 className="text-base font-bold">Resumo do período</h2><Info className="size-4 text-muted-foreground" /></div><p className="mt-3 text-2xl font-extrabold text-success">+ R$ 12.450</p><p className="text-xs text-muted-foreground">resultado no período</p><div className="my-4 border-t border-border" />{[["Receitas realizadas","R$ 21.400"],["Despesas realizadas","R$ 8.950"],["Resultado","+ R$ 12.450"],["Variação vs. período anterior","↑ 18%"]].map(([a,b],i)=><div key={a} className="grid grid-cols-[minmax(0,1fr)_auto] gap-3 border-b border-border py-2 last:border-0"><span className="text-xs text-muted-foreground">{a}</span><strong className={`text-xs ${i>1?"text-success":""}`}>{b}</strong></div>)}</section>;
+  return <section className="rounded-md border border-border bg-card p-4 shadow-card lg:col-span-3"><div className="flex items-center justify-between"><h2 className="text-[15px] font-semibold">Resumo do período</h2><Info className="size-4 text-muted-foreground" /></div><p className="mt-3 text-[22px] font-semibold text-success">+ R$ 12.450</p><p className="text-xs text-muted-foreground">resultado no período</p><div className="my-4 border-t border-border" />{[["Receitas realizadas","R$ 21.400"],["Despesas realizadas","R$ 8.950"],["Resultado","+ R$ 12.450"],["Variação vs. período anterior","↑ 18%"]].map(([a,b],i)=><div key={a} className="grid grid-cols-[minmax(0,1fr)_auto] gap-3 border-b border-border py-2 last:border-0"><span className="text-xs text-muted-foreground">{a}</span><strong className={`text-xs font-medium ${i>1?"text-success":""}`}>{b}</strong></div>)}</section>;
 }
 
 const shortcuts = [[UserPlus,"+ Novo cliente"],[FileText,"+ Novo lançamento"],[BarChart3,"Registrar faturamento"],[TrendingUp,"Iniciar onboarding"]] as const;
-function QuickAccess() { return <section className="rounded-md border border-border bg-card p-4 shadow-card lg:col-span-3"><h2 className="mb-3 text-base font-bold">Acesso rápido</h2><div className="space-y-2">{shortcuts.map(([Icon,label])=><Button key={label} variant="soft" className="h-10 w-full justify-start gap-3 px-3 text-sm"><Icon className="size-5 text-primary" /><span>{label}</span><ChevronRight className="ml-auto size-4" /></Button>)}</div></section>; }
+function QuickAccess() { return <section className="rounded-md border border-border bg-card p-4 shadow-card lg:col-span-3"><h2 className="mb-3 text-[15px] font-semibold">Acesso rápido</h2><div className="space-y-1">{shortcuts.map(([Icon,label])=><Button key={label} variant="soft" className="h-9 w-full justify-start gap-3 px-3 text-[13px]"><Icon className="size-[18px] text-primary" /><span>{label}</span><ChevronRight className="ml-auto size-4 text-muted-foreground" /></Button>)}</div></section>; }
 
 function WorkCard() { return <section className="rounded-md border border-border bg-card p-4 shadow-card lg:col-span-4"><div className="flex items-center justify-between"><h2 className="text-base font-bold">Meu trabalho</h2><span className="rounded-sm bg-badge px-2 py-0.5 text-[10px] text-badge-foreground">Em breve</span></div><div className="flex h-44 flex-col items-center justify-center text-center"><div className="mb-4 grid size-16 place-items-center rounded-full bg-icon"><ListChecks className="size-8 text-brand-soft-foreground" /></div><strong className="text-sm">Seu espaço de trabalho está chegando.</strong><p className="mt-1 max-w-72 text-xs leading-5 text-muted-foreground">Aqui você acompanhará tarefas e ações atribuídas a você.</p></div></section>; }
 
@@ -168,12 +168,12 @@ function Dashboard() {
           <div className="flex items-center gap-3 sm:gap-5"><Button size="icon" className="relative" aria-label="Notificações"><Bell className="size-5 text-primary" /><i className="absolute right-1.5 top-1.5 size-2 rounded-full bg-destructive" /></Button><span className="hidden h-7 w-px bg-border sm:block" /><span className="hidden text-xs font-medium md:block">Terça-feira, 16 de setembro de 2026</span></div>
         </header>
         <main className="mx-auto max-w-[1180px] p-4 sm:p-5">
-          <div className="mb-4 grid grid-cols-[minmax(0,1fr)_auto] items-end gap-4"><div className="min-w-0"><h1 className="truncate text-3xl font-extrabold">Bom dia, Carol!</h1><p className="mt-0.5 text-sm text-muted-foreground">Aqui está o resumo da LeadPro.</p></div><Button variant="outline" className="gap-3 px-3 text-xs sm:px-4"><CalendarDays className="size-4 text-primary" /><span className="hidden sm:inline">Setembro 2026</span><ChevronDown className="size-4" /></Button></div>
+          <div className="mb-5 grid grid-cols-[minmax(0,1fr)_auto] items-end gap-4"><div className="min-w-0"><h1 className="truncate text-[28px] font-semibold">Bom dia, Carol!</h1><p className="mt-1 text-sm text-muted-foreground">Aqui está o resumo da LeadPro.</p></div><Button variant="outline" className="gap-3 px-3 text-xs sm:px-4"><CalendarDays className="size-4 text-primary" /><span className="hidden sm:inline">Setembro 2026</span><ChevronDown className="size-4" /></Button></div>
           <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
-            <MetricCard icon={<BarChart3 className="size-7" />} label="Receitas realizadas" value="R$ 21.400" positive note={<><ArrowUp className="size-4" /> 12% <span className="font-normal text-muted-foreground">vs. mês anterior</span></>} />
-            <MetricCard icon={<TrendingUp className="size-7" />} label="Despesas realizadas" value="R$ 8.950" positive note={<><ArrowDown className="size-4" /> 5% <span className="font-normal text-muted-foreground">vs. mês anterior</span></>} />
-            <MetricCard icon={<Users className="size-7" />} label="Clientes ativos" value="12" note="+2 no período" />
-            <MetricCard icon={<Clock3 className="size-7" />} label="Pendências" value="3" note="2 financeiras · 1 onboarding" />
+            <MetricCard icon={<BarChart3 className="size-5" />} label="Receitas realizadas" value="R$ 21.400" positive note={<><ArrowUp className="size-3.5" /> 12% <span className="font-normal text-muted-foreground">vs. mês anterior</span></>} />
+            <MetricCard icon={<TrendingUp className="size-5" />} label="Despesas realizadas" value="R$ 8.950" positive note={<><ArrowDown className="size-3.5" /> 5% <span className="font-normal text-muted-foreground">vs. mês anterior</span></>} />
+            <MetricCard icon={<Users className="size-5" />} label="Clientes ativos" value="12" note="+2 no período" />
+            <MetricCard icon={<Clock3 className="size-5" />} label="Pendências" value="3" note="2 financeiras · 1 onboarding" />
           </div>
           <div className="mt-3 grid gap-3 lg:grid-cols-13"><Chart /><Summary /><QuickAccess /></div>
           <div className="mt-3 grid gap-3 lg:grid-cols-12"><WorkCard /><Activities /><PriorityClients /></div>
