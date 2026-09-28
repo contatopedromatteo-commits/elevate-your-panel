@@ -4,29 +4,20 @@ import {
   ArrowRight,
   ArrowUp,
   BarChart3,
-  Bell,
   CalendarDays,
   ChevronDown,
   ChevronRight,
-  CircleDollarSign,
   Clock3,
   FileText,
-  Home,
   Info,
   ListChecks,
-  Megaphone,
-  Menu,
-  MoreVertical,
   RefreshCw,
-  Search,
-  Settings,
   TrendingUp,
   UserPlus,
   Users,
-  WalletCards,
-  X,
 } from "lucide-react";
-import { useState, type ReactNode } from "react";
+import type { ReactNode } from "react";
+import { AppShell } from "@/components/app-shell";
 import { Button } from "@/components/ui/button";
 
 export const Route = createFileRoute("/")({
@@ -43,17 +34,6 @@ export const Route = createFileRoute("/")({
   component: Dashboard,
 });
 
-const navItems = [
-  { label: "Painel", icon: Home, active: true },
-  { label: "CRM", icon: RefreshCw, badge: "Em breve" },
-  { label: "Clientes", icon: UserPlus },
-  { label: "Onboarding", icon: FileText },
-  { label: "Equipe", icon: Users, badge: "Em breve" },
-  { label: "Marketing", icon: Megaphone },
-  { label: "Financeiro", icon: CircleDollarSign },
-  { label: "Relatórios", icon: BarChart3, badge: "Em breve" },
-];
-
 const months = [
   { month: "Abr", revenue: 42, expenses: 23 },
   { month: "Mai", revenue: 58, expenses: 25 },
@@ -62,52 +42,6 @@ const months = [
   { month: "Ago", revenue: 82, expenses: 41 },
   { month: "Set", revenue: 92, expenses: 45 },
 ];
-
-function Logo() {
-  return (
-    <div className="flex items-center gap-2.5 text-xl font-extrabold text-foreground">
-      <span className="relative grid size-7 place-items-center" aria-hidden="true">
-        <span className="absolute bottom-1 left-0 h-2.5 w-5 rotate-[-9deg] rounded-sm bg-primary" />
-        <span className="absolute right-0 top-0 h-6 w-2.5 rotate-[-27deg] rounded-sm bg-brand-soft" />
-        <span className="absolute left-2.5 top-0 h-6 w-2.5 rotate-[25deg] rounded-sm bg-primary" />
-      </span>
-      <span>LEADPRO</span>
-    </div>
-  );
-}
-
-function Sidebar({ open, onClose }: { open: boolean; onClose: () => void }) {
-  return (
-    <>
-      {open && <div className="fixed inset-0 z-30 bg-overlay lg:hidden" onClick={onClose} aria-hidden="true" />}
-      <aside className={`fixed inset-y-0 left-0 z-40 flex w-52 flex-col border-r border-border bg-sidebar px-4 py-5 transition-transform lg:translate-x-0 ${open ? "translate-x-0" : "-translate-x-full"}`}>
-        <div className="mb-7 flex items-center justify-between px-1">
-          <Logo />
-          <Button variant="ghost" size="icon" className="lg:hidden" onClick={onClose} aria-label="Fechar menu"><X className="size-5" /></Button>
-        </div>
-        <nav className="space-y-1" aria-label="Navegação principal">
-          {navItems.map((item) => (
-            <Button key={item.label} variant={item.active ? "soft" : "ghost"} className={`w-full justify-start gap-3 px-2.5 ${item.active ? "text-primary" : "text-sidebar-foreground"}`}>
-              <item.icon className="size-[18px] shrink-0" strokeWidth={1.9} />
-              <span className="text-sm">{item.label}</span>
-              {item.badge && <span className="ml-auto rounded-sm bg-badge px-2 py-0.5 text-[10px] text-badge-foreground">{item.badge}</span>}
-            </Button>
-          ))}
-        </nav>
-        <div className="mt-auto space-y-3">
-          <Button variant="ghost" className="w-full justify-start gap-3 px-2.5 text-sidebar-foreground"><Settings className="size-[18px]" /> <span className="text-sm">Configurações</span></Button>
-          <div className="border-t border-border pt-3">
-            <div className="grid grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-2 px-1">
-              <span className="grid size-10 shrink-0 place-items-center rounded-full bg-avatar text-xs font-bold text-primary-foreground">CM</span>
-              <div className="min-w-0"><p className="truncate text-xs font-semibold">Carol Mascarenhas</p><p className="text-[11px] text-muted-foreground">Administradora</p></div>
-              <Button variant="ghost" size="icon" aria-label="Opções da conta"><MoreVertical className="size-4" /></Button>
-            </div>
-          </div>
-        </div>
-      </aside>
-    </>
-  );
-}
 
 function MetricCard({ icon, label, value, note, positive }: { icon: ReactNode; label: string; value: string; note: ReactNode; positive?: boolean }) {
   return (
@@ -157,28 +91,19 @@ const clients = [["L","Luminaê","R$ 2.840 · 126 leads","Alta relevância","suc
 function PriorityClients() { return <section className="rounded-md border border-border bg-card p-4 shadow-card lg:col-span-4"><div className="flex items-center justify-between"><h2 className="text-base font-bold">Clientes prioritários</h2><Button variant="ghost" className="h-auto gap-1 p-0 text-xs text-link">Ver carteira <ArrowRight className="size-3" /></Button></div><div className="mt-4 space-y-3">{clients.map(([letter,name,value,badge,tone])=><div key={name} className="grid grid-cols-[42px_minmax(0,1fr)_auto] items-center gap-3"><span className="grid size-10 place-items-center rounded-full bg-avatar text-sm font-semibold text-primary-foreground">{letter}</span><div className="min-w-0"><p className="truncate text-xs font-semibold">{name}</p><p className="truncate text-[11px] text-muted-foreground">{value}</p></div><span className={`rounded-full bg-${tone}-soft px-2.5 py-1 text-[10px] text-${tone}`}>{badge}</span></div>)}</div></section>; }
 
 function Dashboard() {
-  const [menuOpen, setMenuOpen] = useState(false);
   return (
-    <div className="min-h-screen bg-background text-foreground">
-      <Sidebar open={menuOpen} onClose={() => setMenuOpen(false)} />
-      <div className="lg:pl-52">
-        <header className="sticky top-0 z-20 grid h-[62px] grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-3 border-b border-border bg-header/95 px-4 backdrop-blur sm:px-5">
-          <Button variant="ghost" size="icon" className="lg:hidden" onClick={() => setMenuOpen(true)} aria-label="Abrir menu"><Menu className="size-5" /></Button>
-          <label className="flex h-10 max-w-[500px] items-center gap-3 rounded-md border border-border bg-search px-3 text-muted-foreground"><Search className="size-5 shrink-0 text-primary" /><input aria-label="Buscar no sistema" placeholder="Buscar no sistema..." className="min-w-0 flex-1 bg-transparent text-sm outline-hidden placeholder:text-muted-foreground" /><kbd className="hidden rounded-sm bg-badge px-2 py-0.5 text-[11px] sm:inline">⌘ K</kbd></label>
-          <div className="flex items-center gap-3 sm:gap-5"><Button variant="ghost" size="icon" className="relative" aria-label="Notificações"><Bell className="size-5 text-primary" /><i className="absolute right-1.5 top-1.5 size-2 rounded-full bg-destructive" /></Button><span className="hidden h-7 w-px bg-border sm:block" /><span className="hidden text-xs font-medium md:block">Terça-feira, 16 de setembro de 2026</span></div>
-        </header>
-        <main className="mx-auto max-w-[1180px] p-4 sm:p-5">
-          <div className="mb-5 grid grid-cols-[minmax(0,1fr)_auto] items-end gap-4"><div className="min-w-0"><h1 className="truncate text-[28px] font-semibold">Bom dia, Carol!</h1><p className="mt-1 text-sm text-muted-foreground">Aqui está o resumo da LeadPro.</p></div><Button variant="outline" className="gap-3 px-3 text-xs sm:px-4"><CalendarDays className="size-4 text-primary" /><span className="hidden sm:inline">Setembro 2026</span><ChevronDown className="size-4" /></Button></div>
-          <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
-            <MetricCard icon={<BarChart3 className="size-5" />} label="Receitas realizadas" value="R$ 21.400" positive note={<><ArrowUp className="size-3.5" /> 12% <span className="font-normal text-muted-foreground">vs. mês anterior</span></>} />
-            <MetricCard icon={<TrendingUp className="size-5" />} label="Despesas realizadas" value="R$ 8.950" positive note={<><ArrowDown className="size-3.5" /> 5% <span className="font-normal text-muted-foreground">vs. mês anterior</span></>} />
-            <MetricCard icon={<Users className="size-5" />} label="Clientes ativos" value="12" note="+2 no período" />
-            <MetricCard icon={<Clock3 className="size-5" />} label="Pendências" value="3" note="2 financeiras · 1 onboarding" />
-          </div>
-          <div className="mt-3 grid gap-3 lg:grid-cols-13"><Chart /><Summary /><QuickAccess /></div>
-          <div className="mt-3 grid gap-3 lg:grid-cols-12"><WorkCard /><Activities /><PriorityClients /></div>
-        </main>
-      </div>
-    </div>
+    <AppShell>
+      <main className="mx-auto max-w-[1180px] p-4 sm:p-5">
+        <div className="mb-5 grid grid-cols-[minmax(0,1fr)_auto] items-end gap-4"><div className="min-w-0"><h1 className="truncate text-[28px] font-semibold">Bom dia, Carol!</h1><p className="mt-1 text-sm text-muted-foreground">Aqui está o resumo da LeadPro.</p></div><Button variant="outline" className="gap-3 px-3 text-xs sm:px-4"><CalendarDays className="size-4 text-primary" /><span className="hidden sm:inline">Setembro 2026</span><ChevronDown className="size-4" /></Button></div>
+        <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
+          <MetricCard icon={<BarChart3 className="size-5" />} label="Receitas realizadas" value="R$ 21.400" positive note={<><ArrowUp className="size-3.5" /> 12% <span className="font-normal text-muted-foreground">vs. mês anterior</span></>} />
+          <MetricCard icon={<TrendingUp className="size-5" />} label="Despesas realizadas" value="R$ 8.950" positive note={<><ArrowDown className="size-3.5" /> 5% <span className="font-normal text-muted-foreground">vs. mês anterior</span></>} />
+          <MetricCard icon={<Users className="size-5" />} label="Clientes ativos" value="12" note="+2 no período" />
+          <MetricCard icon={<Clock3 className="size-5" />} label="Pendências" value="3" note="2 financeiras · 1 onboarding" />
+        </div>
+        <div className="mt-3 grid gap-3 lg:grid-cols-13"><Chart /><Summary /><QuickAccess /></div>
+        <div className="mt-3 grid gap-3 lg:grid-cols-12"><WorkCard /><Activities /><PriorityClients /></div>
+      </main>
+    </AppShell>
   );
 }
