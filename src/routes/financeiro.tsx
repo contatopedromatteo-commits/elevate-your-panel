@@ -195,8 +195,8 @@ function MoneyTable({ rows, type }: { rows: readonly { desc: string; cat: string
             <th className="pb-2 pr-3 font-medium">{type === "pagar" ? "Descrição" : "Cliente"}</th>
             <th className="pb-2 pr-3 font-medium">{type === "pagar" ? "Categoria" : "Descrição"}</th>
             <th className="pb-2 pr-3 font-medium">Valor</th>
-            <th className="pb-2 pr-3 font-medium">Vencimento</th>
-            <th className="pb-2 font-medium">Status</th>
+            <th className="pb-2 pr-3 font-medium whitespace-nowrap">Vencimento</th>
+            <th className="hidden pb-2 font-medium xl:table-cell">Status</th>
           </tr>
         </thead>
         <tbody>
@@ -207,9 +207,9 @@ function MoneyTable({ rows, type }: { rows: readonly { desc: string; cat: string
               <tr key={first} className="border-b border-border last:border-0">
                 <td className="max-w-32 truncate py-2.5 pr-3 font-medium">{first}</td>
                 <td className="max-w-28 truncate py-2.5 pr-3 text-muted-foreground">{second}</td>
-                <td className="py-2.5 pr-3 font-medium">{r.value}</td>
-                <td className="py-2.5 pr-3 text-muted-foreground">{r.due}</td>
-                <td className="py-2.5"><span className="rounded-full bg-info-soft px-2 py-0.5 text-[10px] text-info">Em aberto</span></td>
+                <td className="py-2.5 pr-3 font-medium whitespace-nowrap">{r.value}</td>
+                <td className="py-2.5 pr-3 text-muted-foreground whitespace-nowrap">{r.due}</td>
+                <td className="hidden py-2.5 xl:table-cell"><span className="rounded-full bg-info-soft px-2 py-0.5 text-[10px] text-info">Em aberto</span></td>
               </tr>
             );
           })}
