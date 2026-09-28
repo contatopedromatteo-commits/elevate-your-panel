@@ -10,6 +10,7 @@ import {
   Clock3,
   Wallet,
 } from "lucide-react";
+import { AppShell } from "@/components/app-shell";
 import { Button } from "@/components/ui/button";
 
 export const Route = createFileRoute("/financeiro")({
