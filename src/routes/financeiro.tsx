@@ -221,6 +221,7 @@ function MoneyTable({ rows, type }: { rows: readonly { desc: string; cat: string
 
 function Financeiro() {
   return (
+    <AppShell>
     <main className="mx-auto max-w-[1180px] p-4 sm:p-5">
       <div className="mb-4 grid grid-cols-[minmax(0,1fr)_auto] items-end gap-4">
         <div className="min-w-0">
