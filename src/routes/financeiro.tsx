@@ -119,7 +119,7 @@ function BalanceChart() {
             {balance.map((b) => <span key={b.month} className="text-[10px] text-muted-foreground">{b.month}</span>)}
           </div>
           {line.map(([x, y], i) => (
-            <span key={i} className="absolute size-1.5 -translate-x-1/2 -translate-y-1/2 rounded-full bg-primary" style={{ left: `${x}%`, top: `${y * 0.88}%` }} />
+            <span key={i} className="absolute size-1.5 -translate-x-1/2 -translate-y-1/2 rounded-full bg-primary" style={{ left: `${x}%`, top: `${(y ?? 0) * 0.88}%` }} />
           ))}
         </div>
       </div>
