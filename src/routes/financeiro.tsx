@@ -289,5 +289,6 @@ function Financeiro() {
         </Card>
       </div>
     </main>
+    </AppShell>
   );
 }
