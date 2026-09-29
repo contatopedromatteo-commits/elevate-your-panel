@@ -121,8 +121,10 @@ function ClientOverviewPage() {
         </div>
 
         <nav className="mt-5 flex gap-1 overflow-x-auto border-b border-border" aria-label="Seções do cliente">
-          {["Visão Geral", "Dados", "Canais e Conexões", "Acompanhamento", "Arquivos", "Financeiro"].map((tab, index) => (
-            <span key={tab} className={`-mb-px shrink-0 border-b-2 px-3 pb-2 text-[12px] font-medium ${index === 0 ? "border-primary text-primary" : "border-transparent text-muted-foreground"}`}>{tab}</span>
+          <Link to="/clientes/$clienteId" params={{ clienteId: client.id }} className="-mb-px shrink-0 border-b-2 border-primary px-3 pb-2 text-[12px] font-medium text-primary">Visão Geral</Link>
+          <Link to="/clientes/$clienteId/cadastro" params={{ clienteId: client.id }} className="-mb-px shrink-0 border-b-2 border-transparent px-3 pb-2 text-[12px] font-medium text-muted-foreground transition-colors hover:text-foreground">Cadastro e Condição</Link>
+          {["Acompanhamento", "Arquivos", "Financeiro"].map((tab) => (
+            <span key={tab} className="-mb-px shrink-0 border-b-2 border-transparent px-3 pb-2 text-[12px] font-medium text-muted-foreground">{tab}</span>
           ))}
         </nav>
 
