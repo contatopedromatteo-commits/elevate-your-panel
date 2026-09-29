@@ -28,7 +28,7 @@ import { AppShell } from "@/components/app-shell";
 import { Button } from "@/components/ui/button";
 import { getClient } from "@/data/clients";
 
-export const Route = createFileRoute("/clientes/$clienteId")({
+export const Route = createFileRoute("/clientes/$clienteId/")({
   loader: ({ params }) => {
     const client = getClient(params.clienteId);
     if (!client) throw notFound();
