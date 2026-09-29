@@ -196,7 +196,6 @@ function MoneyTable({ rows, type }: { rows: readonly { desc: string; cat: string
             <th className="hidden w-[30%] pb-2 pr-2 font-medium sm:table-cell">{type === "pagar" ? "Categoria" : "Descrição"}</th>
             <th className="pb-2 pr-2 font-medium">Valor</th>
             <th className="pb-2 font-medium whitespace-nowrap">Venc.</th>
-            <th className="hidden pb-2 font-medium xl:table-cell">Status</th>
           </tr>
         </thead>
         <tbody>
@@ -209,7 +208,6 @@ function MoneyTable({ rows, type }: { rows: readonly { desc: string; cat: string
                 <td className="hidden truncate py-2.5 pr-2 text-muted-foreground sm:table-cell">{second}</td>
                 <td className="py-2.5 pr-2 font-medium whitespace-nowrap">{r.value}</td>
                 <td className="py-2.5 text-muted-foreground whitespace-nowrap">{r.due}</td>
-                <td className="hidden py-2.5 xl:table-cell"><span className="rounded-full bg-info-soft px-2 py-0.5 text-[10px] text-info">Em aberto</span></td>
               </tr>
             );
           })}
