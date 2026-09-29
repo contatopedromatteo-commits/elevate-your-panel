@@ -10,3 +10,4 @@
 <!-- LOVABLE:END -->
 
 - Keep Clients overview at `/clientes` and the full client portfolio at `/clientes/carteira` so each view remains directly shareable and extensible.
+- Keep individual client profiles at `/clientes/$clienteId`, using one shared client dataset for portfolio and detail consistency.

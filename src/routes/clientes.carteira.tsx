@@ -15,6 +15,7 @@ import { AppShell } from "@/components/app-shell";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { clients, type ClientStatus } from "@/data/clients";
 
 export const Route = createFileRoute("/clientes/carteira")({
   head: () => ({
@@ -29,32 +30,6 @@ export const Route = createFileRoute("/clientes/carteira")({
   }),
   component: CarteiraPage,
 });
-
-type ClientStatus = "Ativo" | "Onboarding" | "Pausado" | "Encerrado";
-type Client = {
-  initials: string;
-  name: string;
-  company: string;
-  status: ClientStatus;
-  operation: string;
-  profile: "High" | "Medium" | "Low";
-  owner: "Carol" | "Pedro";
-  revenue: number;
-  situation: string;
-};
-
-const clients: Client[] = [
-  { initials: "MN", name: "Marcelo Nunes", company: "MN Empreendimentos", status: "Ativo", operation: "Apartamentos", profile: "High", owner: "Carol", revenue: 1897, situation: "Tudo certo" },
-  { initials: "AB", name: "Ana Beatriz", company: "AB Incorporações", status: "Ativo", operation: "Loteamentos", profile: "Medium", owner: "Pedro", revenue: 2187, situation: "1 pendência" },
-  { initials: "GR", name: "Gran Reserva", company: "Gran Reserva Empreendimentos", status: "Onboarding", operation: "Casas, Loteamentos", profile: "High", owner: "Carol", revenue: 1500, situation: "Aguardando cliente" },
-  { initials: "H", name: "Horizonte", company: "Horizonte Construtora", status: "Ativo", operation: "Apartamentos", profile: "Medium", owner: "Pedro", revenue: 2100, situation: "Tudo certo" },
-  { initials: "L", name: "Luminaê", company: "Luminaê Empreendimentos", status: "Ativo", operation: "Comerciais", profile: "High", owner: "Carol", revenue: 2840, situation: "Tudo certo" },
-  { initials: "VV", name: "Vale Verde", company: "Vale Verde Urbanismo", status: "Pausado", operation: "Loteamentos", profile: "Low", owner: "Pedro", revenue: 0, situation: "Em pausa" },
-  { initials: "S", name: "Solare", company: "Solare Desenvolvimentos", status: "Ativo", operation: "Apartamentos, Comerciais", profile: "Medium", owner: "Carol", revenue: 1240, situation: "Tudo certo" },
-  { initials: "VA", name: "Vista Alta", company: "Vista Alta Incorporações", status: "Encerrado", operation: "Casas", profile: "Low", owner: "Pedro", revenue: 0, situation: "Contrato encerrado" },
-  { initials: "R", name: "Riviera", company: "Riviera Empreendimentos", status: "Ativo", operation: "Loteamentos", profile: "High", owner: "Carol", revenue: 1350, situation: "Tudo certo" },
-  { initials: "E", name: "Evolute", company: "Evolute Urbanismo", status: "Onboarding", operation: "Casas, Loteamentos", profile: "Medium", owner: "Pedro", revenue: 697, situation: "Em configuração" },
-];
 
 const money = new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL" });
 
@@ -163,13 +138,13 @@ function CarteiraPage() {
                 {filteredClients.map((client) => (
                   <tr key={client.name} className="group transition-colors hover:bg-muted/45">
                     <td className="px-4 py-3">
-                      <button className="grid w-full grid-cols-[32px_minmax(0,1fr)] items-center gap-2.5 text-left" aria-label={`Abrir cliente ${client.name} — página disponível na próxima etapa`}>
+                      <Link to="/clientes/$clienteId" params={{ clienteId: client.id }} className="grid w-full grid-cols-[32px_minmax(0,1fr)] items-center gap-2.5 text-left" aria-label={`Abrir cliente ${client.name}`}>
                         <span className="grid size-8 place-items-center rounded-md bg-avatar text-[10px] font-semibold text-primary-foreground">{client.initials}</span>
                         <span className="min-w-0">
                           <span className="block truncate text-xs font-semibold group-hover:text-primary">{client.name}</span>
                           <span className="block truncate text-[10px] text-muted-foreground">{client.company}</span>
                         </span>
-                      </button>
+                      </Link>
                     </td>
                     <td className="px-3 py-3"><Tag tone={statusTone(client.status)}>{client.status}</Tag></td>
                     <td className="max-w-36 truncate px-3 py-3 text-[11px]">{client.operation}</td>
