@@ -15,6 +15,8 @@ import { Route as FinanceiroRouteImport } from './routes/financeiro'
 import { Route as ClientesIndexRouteImport } from './routes/clientes.index'
 import { Route as ClientesClienteIdRouteImport } from './routes/clientes.$clienteId'
 import { Route as ClientesCarteiraRouteImport } from './routes/clientes.carteira'
+import { Route as ClientesClienteIdIndexRouteImport } from './routes/clientes.$clienteId.index'
+import { Route as ClientesClienteIdCadastroRouteImport } from './routes/clientes.$clienteId.cadastro'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -46,30 +48,46 @@ const ClientesCarteiraRoute = ClientesCarteiraRouteImport.update({
   path: '/carteira',
   getParentRoute: () => ClientesRoute,
 } as any)
+const ClientesClienteIdIndexRoute = ClientesClienteIdIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => ClientesClienteIdRoute,
+} as any)
+const ClientesClienteIdCadastroRoute =
+  ClientesClienteIdCadastroRouteImport.update({
+    id: '/cadastro',
+    path: '/cadastro',
+    getParentRoute: () => ClientesClienteIdRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/clientes': typeof ClientesRouteWithChildren
   '/financeiro': typeof FinanceiroRoute
-  '/clientes/$clienteId': typeof ClientesClienteIdRoute
+  '/clientes/$clienteId': typeof ClientesClienteIdRouteWithChildren
   '/clientes/carteira': typeof ClientesCarteiraRoute
   '/clientes/': typeof ClientesIndexRoute
+  '/clientes/$clienteId/cadastro': typeof ClientesClienteIdCadastroRoute
+  '/clientes/$clienteId/': typeof ClientesClienteIdIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/financeiro': typeof FinanceiroRoute
-  '/clientes/$clienteId': typeof ClientesClienteIdRoute
   '/clientes/carteira': typeof ClientesCarteiraRoute
   '/clientes': typeof ClientesIndexRoute
+  '/clientes/$clienteId/cadastro': typeof ClientesClienteIdCadastroRoute
+  '/clientes/$clienteId': typeof ClientesClienteIdIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/clientes': typeof ClientesRouteWithChildren
   '/financeiro': typeof FinanceiroRoute
-  '/clientes/$clienteId': typeof ClientesClienteIdRoute
+  '/clientes/$clienteId': typeof ClientesClienteIdRouteWithChildren
   '/clientes/carteira': typeof ClientesCarteiraRoute
   '/clientes/': typeof ClientesIndexRoute
+  '/clientes/$clienteId/cadastro': typeof ClientesClienteIdCadastroRoute
+  '/clientes/$clienteId/': typeof ClientesClienteIdIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -80,13 +98,16 @@ export interface FileRouteTypes {
     | '/clientes/$clienteId'
     | '/clientes/carteira'
     | '/clientes/'
+    | '/clientes/$clienteId/cadastro'
+    | '/clientes/$clienteId/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/financeiro'
-    | '/clientes/$clienteId'
     | '/clientes/carteira'
     | '/clientes'
+    | '/clientes/$clienteId/cadastro'
+    | '/clientes/$clienteId'
   id:
     | '__root__'
     | '/'
@@ -95,6 +116,8 @@ export interface FileRouteTypes {
     | '/clientes/$clienteId'
     | '/clientes/carteira'
     | '/clientes/'
+    | '/clientes/$clienteId/cadastro'
+    | '/clientes/$clienteId/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -147,17 +170,44 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ClientesCarteiraRouteImport
       parentRoute: typeof ClientesRoute
     }
+    '/clientes/$clienteId/': {
+      id: '/clientes/$clienteId/'
+      path: '/'
+      fullPath: '/clientes/$clienteId/'
+      preLoaderRoute: typeof ClientesClienteIdIndexRouteImport
+      parentRoute: typeof ClientesClienteIdRoute
+    }
+    '/clientes/$clienteId/cadastro': {
+      id: '/clientes/$clienteId/cadastro'
+      path: '/cadastro'
+      fullPath: '/clientes/$clienteId/cadastro'
+      preLoaderRoute: typeof ClientesClienteIdCadastroRouteImport
+      parentRoute: typeof ClientesClienteIdRoute
+    }
   }
 }
 
+interface ClientesClienteIdRouteChildren {
+  ClientesClienteIdCadastroRoute: typeof ClientesClienteIdCadastroRoute
+  ClientesClienteIdIndexRoute: typeof ClientesClienteIdIndexRoute
+}
+
+const ClientesClienteIdRouteChildren: ClientesClienteIdRouteChildren = {
+  ClientesClienteIdCadastroRoute: ClientesClienteIdCadastroRoute,
+  ClientesClienteIdIndexRoute: ClientesClienteIdIndexRoute,
+}
+
+const ClientesClienteIdRouteWithChildren =
+  ClientesClienteIdRoute._addFileChildren(ClientesClienteIdRouteChildren)
+
 interface ClientesRouteChildren {
-  ClientesClienteIdRoute: typeof ClientesClienteIdRoute
+  ClientesClienteIdRoute: typeof ClientesClienteIdRouteWithChildren
   ClientesCarteiraRoute: typeof ClientesCarteiraRoute
   ClientesIndexRoute: typeof ClientesIndexRoute
 }
 
 const ClientesRouteChildren: ClientesRouteChildren = {
-  ClientesClienteIdRoute: ClientesClienteIdRoute,
+  ClientesClienteIdRoute: ClientesClienteIdRouteWithChildren,
   ClientesCarteiraRoute: ClientesCarteiraRoute,
   ClientesIndexRoute: ClientesIndexRoute,
 }
