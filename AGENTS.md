@@ -8,3 +8,5 @@
 > Commits you push to the connected branch sync back to Lovable and show up in
 > the editor, so keep the branch in a working state.
 <!-- LOVABLE:END -->
+
+- Keep Clients overview at `/clientes` and the full client portfolio at `/clientes/carteira` so each view remains directly shareable and extensible.
