@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import {
   ArrowDown,
   ArrowRight,
@@ -29,8 +29,6 @@ export const Route = createFileRoute("/clientes")({
   }),
   component: ClientesPage,
 });
-
-const tabs = ["Visão Geral", "Carteira"] as const;
 
 function MetricCard({ icon, label, value, note }: { icon: ReactNode; label: string; value: string; note: ReactNode }) {
   return (
@@ -129,14 +127,8 @@ function ClientesPage() {
         </div>
 
         <div className="mb-4 flex gap-1 border-b border-border">
-          {tabs.map((tab, i) => (
-            <button
-              key={tab}
-              className={`-mb-px border-b-2 px-3 pb-2 text-[13px] font-medium ${i === 0 ? "border-primary text-primary" : "border-transparent text-muted-foreground hover:text-foreground"}`}
-            >
-              {tab}
-            </button>
-          ))}
+          <Link to="/clientes" activeOptions={{ exact: true }} className="-mb-px border-b-2 border-primary px-3 pb-2 text-[13px] font-medium text-primary">Visão Geral</Link>
+          <Link to="/clientes/carteira" className="-mb-px border-b-2 border-transparent px-3 pb-2 text-[13px] font-medium text-muted-foreground transition-colors hover:text-foreground">Carteira</Link>
         </div>
 
         <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
