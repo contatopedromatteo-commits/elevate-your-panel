@@ -189,13 +189,13 @@ function Distribution() {
 function MoneyTable({ rows, type }: { rows: readonly { desc: string; cat: string; value: string; due: string }[] | readonly { client: string; desc: string; value: string; due: string }[]; type: "pagar" | "receber" }) {
   return (
     <div className="overflow-x-auto">
-      <table className="w-full text-xs">
+      <table className="w-full table-fixed text-[11px]">
         <thead>
           <tr className="border-b border-border text-left text-[11px] text-muted-foreground">
-            <th className="pb-2 pr-3 font-medium">{type === "pagar" ? "Descrição" : "Cliente"}</th>
-            <th className="hidden pb-2 pr-3 font-medium sm:table-cell">{type === "pagar" ? "Categoria" : "Descrição"}</th>
-            <th className="pb-2 pr-3 font-medium">Valor</th>
-            <th className="pb-2 pr-3 font-medium whitespace-nowrap">Vencimento</th>
+            <th className="w-[38%] pb-2 pr-2 font-medium">{type === "pagar" ? "Descrição" : "Cliente"}</th>
+            <th className="hidden w-[30%] pb-2 pr-2 font-medium sm:table-cell">{type === "pagar" ? "Categoria" : "Descrição"}</th>
+            <th className="pb-2 pr-2 font-medium">Valor</th>
+            <th className="pb-2 font-medium whitespace-nowrap">Venc.</th>
             <th className="hidden pb-2 font-medium xl:table-cell">Status</th>
           </tr>
         </thead>
@@ -205,10 +205,10 @@ function MoneyTable({ rows, type }: { rows: readonly { desc: string; cat: string
             const second = "client" in r ? r.desc : r.cat;
             return (
               <tr key={first} className="border-b border-border last:border-0">
-                <td className="max-w-32 truncate py-2.5 pr-3 font-medium">{first}</td>
-                <td className="hidden max-w-28 truncate py-2.5 pr-3 text-muted-foreground sm:table-cell">{second}</td>
-                <td className="py-2.5 pr-3 font-medium whitespace-nowrap">{r.value}</td>
-                <td className="py-2.5 pr-3 text-muted-foreground whitespace-nowrap">{r.due}</td>
+                <td className="truncate py-2.5 pr-2 font-medium">{first}</td>
+                <td className="hidden truncate py-2.5 pr-2 text-muted-foreground sm:table-cell">{second}</td>
+                <td className="py-2.5 pr-2 font-medium whitespace-nowrap">{r.value}</td>
+                <td className="py-2.5 text-muted-foreground whitespace-nowrap">{r.due}</td>
                 <td className="hidden py-2.5 xl:table-cell"><span className="rounded-full bg-info-soft px-2 py-0.5 text-[10px] text-info">Em aberto</span></td>
               </tr>
             );
