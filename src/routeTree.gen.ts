@@ -13,8 +13,10 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as ClientesRouteImport } from './routes/clientes'
 import { Route as FinanceiroRouteImport } from './routes/financeiro'
 import { Route as ClientesIndexRouteImport } from './routes/clientes.index'
+import { Route as ClientesClienteIdRouteImport } from './routes/clientes.$clienteId'
 import { Route as ClientesCarteiraRouteImport } from './routes/clientes.carteira'
 import { Route as ClientesClienteIdIndexRouteImport } from './routes/clientes.$clienteId.index'
+import { Route as ClientesClienteIdCadastroRouteImport } from './routes/clientes.$clienteId.cadastro'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -36,23 +38,36 @@ const ClientesIndexRoute = ClientesIndexRouteImport.update({
   path: '/',
   getParentRoute: () => ClientesRoute,
 } as any)
+const ClientesClienteIdRoute = ClientesClienteIdRouteImport.update({
+  id: '/$clienteId',
+  path: '/$clienteId',
+  getParentRoute: () => ClientesRoute,
+} as any)
 const ClientesCarteiraRoute = ClientesCarteiraRouteImport.update({
   id: '/carteira',
   path: '/carteira',
   getParentRoute: () => ClientesRoute,
 } as any)
 const ClientesClienteIdIndexRoute = ClientesClienteIdIndexRouteImport.update({
-  id: '/$clienteId/',
-  path: '/$clienteId/',
-  getParentRoute: () => ClientesRoute,
+  id: '/',
+  path: '/',
+  getParentRoute: () => ClientesClienteIdRoute,
 } as any)
+const ClientesClienteIdCadastroRoute =
+  ClientesClienteIdCadastroRouteImport.update({
+    id: '/cadastro',
+    path: '/cadastro',
+    getParentRoute: () => ClientesClienteIdRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/clientes': typeof ClientesRouteWithChildren
   '/financeiro': typeof FinanceiroRoute
+  '/clientes/$clienteId': typeof ClientesClienteIdRouteWithChildren
   '/clientes/carteira': typeof ClientesCarteiraRoute
   '/clientes/': typeof ClientesIndexRoute
+  '/clientes/$clienteId/cadastro': typeof ClientesClienteIdCadastroRoute
   '/clientes/$clienteId/': typeof ClientesClienteIdIndexRoute
 }
 export interface FileRoutesByTo {
@@ -60,6 +75,7 @@ export interface FileRoutesByTo {
   '/financeiro': typeof FinanceiroRoute
   '/clientes/carteira': typeof ClientesCarteiraRoute
   '/clientes': typeof ClientesIndexRoute
+  '/clientes/$clienteId/cadastro': typeof ClientesClienteIdCadastroRoute
   '/clientes/$clienteId': typeof ClientesClienteIdIndexRoute
 }
 export interface FileRoutesById {
@@ -67,8 +83,10 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/clientes': typeof ClientesRouteWithChildren
   '/financeiro': typeof FinanceiroRoute
+  '/clientes/$clienteId': typeof ClientesClienteIdRouteWithChildren
   '/clientes/carteira': typeof ClientesCarteiraRoute
   '/clientes/': typeof ClientesIndexRoute
+  '/clientes/$clienteId/cadastro': typeof ClientesClienteIdCadastroRoute
   '/clientes/$clienteId/': typeof ClientesClienteIdIndexRoute
 }
 export interface FileRouteTypes {
@@ -77,8 +95,10 @@ export interface FileRouteTypes {
     | '/'
     | '/clientes'
     | '/financeiro'
+    | '/clientes/$clienteId'
     | '/clientes/carteira'
     | '/clientes/'
+    | '/clientes/$clienteId/cadastro'
     | '/clientes/$clienteId/'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -86,14 +106,17 @@ export interface FileRouteTypes {
     | '/financeiro'
     | '/clientes/carteira'
     | '/clientes'
+    | '/clientes/$clienteId/cadastro'
     | '/clientes/$clienteId'
   id:
     | '__root__'
     | '/'
     | '/clientes'
     | '/financeiro'
+    | '/clientes/$clienteId'
     | '/clientes/carteira'
     | '/clientes/'
+    | '/clientes/$clienteId/cadastro'
     | '/clientes/$clienteId/'
   fileRoutesById: FileRoutesById
 }
@@ -133,6 +156,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ClientesIndexRouteImport
       parentRoute: typeof ClientesRoute
     }
+    '/clientes/$clienteId': {
+      id: '/clientes/$clienteId'
+      path: '/$clienteId'
+      fullPath: '/clientes/$clienteId'
+      preLoaderRoute: typeof ClientesClienteIdRouteImport
+      parentRoute: typeof ClientesRoute
+    }
     '/clientes/carteira': {
       id: '/clientes/carteira'
       path: '/carteira'
@@ -142,24 +172,44 @@ declare module '@tanstack/react-router' {
     }
     '/clientes/$clienteId/': {
       id: '/clientes/$clienteId/'
-      path: '/$clienteId'
+      path: '/'
       fullPath: '/clientes/$clienteId/'
       preLoaderRoute: typeof ClientesClienteIdIndexRouteImport
-      parentRoute: typeof ClientesRoute
+      parentRoute: typeof ClientesClienteIdRoute
+    }
+    '/clientes/$clienteId/cadastro': {
+      id: '/clientes/$clienteId/cadastro'
+      path: '/cadastro'
+      fullPath: '/clientes/$clienteId/cadastro'
+      preLoaderRoute: typeof ClientesClienteIdCadastroRouteImport
+      parentRoute: typeof ClientesClienteIdRoute
     }
   }
 }
 
-interface ClientesRouteChildren {
-  ClientesCarteiraRoute: typeof ClientesCarteiraRoute
-  ClientesIndexRoute: typeof ClientesIndexRoute
+interface ClientesClienteIdRouteChildren {
+  ClientesClienteIdCadastroRoute: typeof ClientesClienteIdCadastroRoute
   ClientesClienteIdIndexRoute: typeof ClientesClienteIdIndexRoute
 }
 
+const ClientesClienteIdRouteChildren: ClientesClienteIdRouteChildren = {
+  ClientesClienteIdCadastroRoute: ClientesClienteIdCadastroRoute,
+  ClientesClienteIdIndexRoute: ClientesClienteIdIndexRoute,
+}
+
+const ClientesClienteIdRouteWithChildren =
+  ClientesClienteIdRoute._addFileChildren(ClientesClienteIdRouteChildren)
+
+interface ClientesRouteChildren {
+  ClientesClienteIdRoute: typeof ClientesClienteIdRouteWithChildren
+  ClientesCarteiraRoute: typeof ClientesCarteiraRoute
+  ClientesIndexRoute: typeof ClientesIndexRoute
+}
+
 const ClientesRouteChildren: ClientesRouteChildren = {
+  ClientesClienteIdRoute: ClientesClienteIdRouteWithChildren,
   ClientesCarteiraRoute: ClientesCarteiraRoute,
   ClientesIndexRoute: ClientesIndexRoute,
-  ClientesClienteIdIndexRoute: ClientesClienteIdIndexRoute,
 }
 
 const ClientesRouteWithChildren = ClientesRoute._addFileChildren(
