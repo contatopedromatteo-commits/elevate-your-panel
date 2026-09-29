@@ -21,7 +21,7 @@ import { Button } from "@/components/ui/button";
 const navItems = [
   { label: "Painel", icon: Home, to: "/" },
   { label: "CRM", icon: RefreshCw, badge: "Em breve" },
-  { label: "Clientes", icon: UserPlus },
+  { label: "Clientes", icon: UserPlus, to: "/clientes" },
   { label: "Onboarding", icon: FileText },
   { label: "Equipe", icon: Users, badge: "Em breve" },
   { label: "Marketing", icon: Megaphone },
