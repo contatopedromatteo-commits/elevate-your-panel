@@ -1,6 +1,5 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import {
-  ArrowRight,
   CalendarDays,
   CheckCircle2,
   ChevronDown,
@@ -8,12 +7,10 @@ import {
   CircleAlert,
   Download,
   Gauge,
-  Megaphone,
   MoreHorizontal,
   Pencil,
   Plus,
   Target,
-  TrendingUp,
   UserCheck,
   Users,
   WalletCards,

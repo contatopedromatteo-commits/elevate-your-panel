@@ -12,3 +12,4 @@
 - Keep Clients overview at `/clientes` and the full client portfolio at `/clientes/carteira` so each view remains directly shareable and extensible.
 - Keep individual client profiles at `/clientes/$clienteId`, using one shared client dataset for portfolio and detail consistency.
 - Keep client registration and commercial terms at `/clientes/$clienteId/cadastro`, with profile tabs linking between overview and registration.
+- Keep client performance tracking at `/clientes/$clienteId/acompanhamento`, using the shared client identity and profile navigation.
