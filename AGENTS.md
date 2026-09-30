@@ -13,3 +13,4 @@
 - Keep individual client profiles at `/clientes/$clienteId`, using one shared client dataset for portfolio and detail consistency.
 - Keep client registration and commercial terms at `/clientes/$clienteId/cadastro`, with profile tabs linking between overview and registration.
 - Keep client performance tracking at `/clientes/$clienteId/acompanhamento`, using the shared client identity and profile navigation.
+- Keep the client document index at `/clientes/$clienteId/arquivos`; store access links rather than uploaded file binaries in this mock phase.

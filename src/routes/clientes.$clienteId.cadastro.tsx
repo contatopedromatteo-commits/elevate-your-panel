@@ -56,7 +56,8 @@ function ClientRegistrationPage() {
           <Link to="/clientes/$clienteId" params={{ clienteId: client.id }} className="-mb-px shrink-0 border-b-2 border-transparent px-3 pb-2 text-[12px] font-medium text-muted-foreground hover:text-foreground">Visão Geral</Link>
           <Link to="/clientes/$clienteId/cadastro" params={{ clienteId: client.id }} className="-mb-px shrink-0 border-b-2 border-primary px-3 pb-2 text-[12px] font-medium text-primary">Cadastro e Condição</Link>
           <Link to="/clientes/$clienteId/acompanhamento" params={{ clienteId: client.id }} className="-mb-px shrink-0 border-b-2 border-transparent px-3 pb-2 text-[12px] font-medium text-muted-foreground transition-colors hover:text-foreground">Acompanhamento</Link>
-          {["Arquivos", "Financeiro"].map((tab) => <span key={tab} className="-mb-px shrink-0 border-b-2 border-transparent px-3 pb-2 text-[12px] font-medium text-muted-foreground">{tab}</span>)}
+          <Link to="/clientes/$clienteId/arquivos" params={{ clienteId: client.id }} className="-mb-px shrink-0 border-b-2 border-transparent px-3 pb-2 text-[12px] font-medium text-muted-foreground transition-colors hover:text-foreground">Arquivos</Link>
+          <span className="-mb-px shrink-0 border-b-2 border-transparent px-3 pb-2 text-[12px] font-medium text-muted-foreground">Financeiro</span>
         </nav>
 
         <div className="mt-4 grid gap-3 lg:grid-cols-[1fr_280px]">
