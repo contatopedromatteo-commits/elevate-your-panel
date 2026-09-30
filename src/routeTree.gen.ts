@@ -16,6 +16,7 @@ import { Route as ClientesIndexRouteImport } from './routes/clientes.index'
 import { Route as ClientesClienteIdRouteImport } from './routes/clientes.$clienteId'
 import { Route as ClientesCarteiraRouteImport } from './routes/clientes.carteira'
 import { Route as ClientesClienteIdIndexRouteImport } from './routes/clientes.$clienteId.index'
+import { Route as ClientesClienteIdAcompanhamentoRouteImport } from './routes/clientes.$clienteId.acompanhamento'
 import { Route as ClientesClienteIdCadastroRouteImport } from './routes/clientes.$clienteId.cadastro'
 
 const IndexRoute = IndexRouteImport.update({
@@ -53,6 +54,12 @@ const ClientesClienteIdIndexRoute = ClientesClienteIdIndexRouteImport.update({
   path: '/',
   getParentRoute: () => ClientesClienteIdRoute,
 } as any)
+const ClientesClienteIdAcompanhamentoRoute =
+  ClientesClienteIdAcompanhamentoRouteImport.update({
+    id: '/acompanhamento',
+    path: '/acompanhamento',
+    getParentRoute: () => ClientesClienteIdRoute,
+  } as any)
 const ClientesClienteIdCadastroRoute =
   ClientesClienteIdCadastroRouteImport.update({
     id: '/cadastro',
@@ -67,6 +74,7 @@ export interface FileRoutesByFullPath {
   '/clientes/$clienteId': typeof ClientesClienteIdRouteWithChildren
   '/clientes/carteira': typeof ClientesCarteiraRoute
   '/clientes/': typeof ClientesIndexRoute
+  '/clientes/$clienteId/acompanhamento': typeof ClientesClienteIdAcompanhamentoRoute
   '/clientes/$clienteId/cadastro': typeof ClientesClienteIdCadastroRoute
   '/clientes/$clienteId/': typeof ClientesClienteIdIndexRoute
 }
@@ -75,6 +83,7 @@ export interface FileRoutesByTo {
   '/financeiro': typeof FinanceiroRoute
   '/clientes/carteira': typeof ClientesCarteiraRoute
   '/clientes': typeof ClientesIndexRoute
+  '/clientes/$clienteId/acompanhamento': typeof ClientesClienteIdAcompanhamentoRoute
   '/clientes/$clienteId/cadastro': typeof ClientesClienteIdCadastroRoute
   '/clientes/$clienteId': typeof ClientesClienteIdIndexRoute
 }
@@ -86,6 +95,7 @@ export interface FileRoutesById {
   '/clientes/$clienteId': typeof ClientesClienteIdRouteWithChildren
   '/clientes/carteira': typeof ClientesCarteiraRoute
   '/clientes/': typeof ClientesIndexRoute
+  '/clientes/$clienteId/acompanhamento': typeof ClientesClienteIdAcompanhamentoRoute
   '/clientes/$clienteId/cadastro': typeof ClientesClienteIdCadastroRoute
   '/clientes/$clienteId/': typeof ClientesClienteIdIndexRoute
 }
@@ -98,6 +108,7 @@ export interface FileRouteTypes {
     | '/clientes/$clienteId'
     | '/clientes/carteira'
     | '/clientes/'
+    | '/clientes/$clienteId/acompanhamento'
     | '/clientes/$clienteId/cadastro'
     | '/clientes/$clienteId/'
   fileRoutesByTo: FileRoutesByTo
@@ -106,6 +117,7 @@ export interface FileRouteTypes {
     | '/financeiro'
     | '/clientes/carteira'
     | '/clientes'
+    | '/clientes/$clienteId/acompanhamento'
     | '/clientes/$clienteId/cadastro'
     | '/clientes/$clienteId'
   id:
@@ -116,6 +128,7 @@ export interface FileRouteTypes {
     | '/clientes/$clienteId'
     | '/clientes/carteira'
     | '/clientes/'
+    | '/clientes/$clienteId/acompanhamento'
     | '/clientes/$clienteId/cadastro'
     | '/clientes/$clienteId/'
   fileRoutesById: FileRoutesById
@@ -177,6 +190,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ClientesClienteIdIndexRouteImport
       parentRoute: typeof ClientesClienteIdRoute
     }
+    '/clientes/$clienteId/acompanhamento': {
+      id: '/clientes/$clienteId/acompanhamento'
+      path: '/acompanhamento'
+      fullPath: '/clientes/$clienteId/acompanhamento'
+      preLoaderRoute: typeof ClientesClienteIdAcompanhamentoRouteImport
+      parentRoute: typeof ClientesClienteIdRoute
+    }
     '/clientes/$clienteId/cadastro': {
       id: '/clientes/$clienteId/cadastro'
       path: '/cadastro'
@@ -188,11 +208,13 @@ declare module '@tanstack/react-router' {
 }
 
 interface ClientesClienteIdRouteChildren {
+  ClientesClienteIdAcompanhamentoRoute: typeof ClientesClienteIdAcompanhamentoRoute
   ClientesClienteIdCadastroRoute: typeof ClientesClienteIdCadastroRoute
   ClientesClienteIdIndexRoute: typeof ClientesClienteIdIndexRoute
 }
 
 const ClientesClienteIdRouteChildren: ClientesClienteIdRouteChildren = {
+  ClientesClienteIdAcompanhamentoRoute: ClientesClienteIdAcompanhamentoRoute,
   ClientesClienteIdCadastroRoute: ClientesClienteIdCadastroRoute,
   ClientesClienteIdIndexRoute: ClientesClienteIdIndexRoute,
 }
