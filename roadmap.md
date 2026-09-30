@@ -2,4 +2,4 @@
 
 - [x] Criar a página de Acompanhamento de cada cliente.
 - [x] Conectar a nova aba à Visão Geral e ao Cadastro e Condição.
-- [ ] Validar visualmente em desktop e celular.
+- [x] Validar visualmente em desktop e celular.
