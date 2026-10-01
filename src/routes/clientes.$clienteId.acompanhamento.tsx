@@ -79,7 +79,7 @@ function ClientTrackingPage() {
           <Link to="/clientes/$clienteId/cadastro" params={{ clienteId: client.id }} className="-mb-px shrink-0 border-b-2 border-transparent px-3 pb-2 text-[12px] font-medium text-muted-foreground transition-colors hover:text-foreground">Cadastro e Condição</Link>
           <Link to="/clientes/$clienteId/acompanhamento" params={{ clienteId: client.id }} className="-mb-px shrink-0 border-b-2 border-primary px-3 pb-2 text-[12px] font-medium text-primary">Acompanhamento</Link>
           <Link to="/clientes/$clienteId/arquivos" params={{ clienteId: client.id }} className="-mb-px shrink-0 border-b-2 border-transparent px-3 pb-2 text-[12px] font-medium text-muted-foreground transition-colors hover:text-foreground">Arquivos</Link>
-          <span className="-mb-px shrink-0 border-b-2 border-transparent px-3 pb-2 text-[12px] font-medium text-muted-foreground">Financeiro</span>
+          <Link to="/clientes/$clienteId/financeiro" params={{ clienteId: client.id }} className="-mb-px shrink-0 border-b-2 border-transparent px-3 pb-2 text-[12px] font-medium text-muted-foreground transition-colors hover:text-foreground">Financeiro</Link>
         </nav>
 
         <div className="mt-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between"><div><h2 className="text-[14px] font-semibold">Funil de vendas</h2><p className="mt-0.5 text-[10px] text-muted-foreground">Resultados consolidados do período</p></div><Button variant="outline" className="h-8 justify-between gap-3 px-3 text-[11px]"><CalendarDays className="size-3.5" />Setembro 2026<ChevronDown className="size-3.5" /></Button></div>
