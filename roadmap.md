@@ -6,3 +6,6 @@
 - [x] Criar a página de Arquivos de cada cliente.
 - [x] Conectar a nova aba às páginas existentes do perfil.
 - [ ] Validar Arquivos em desktop e celular.
+- [x] Criar a página Financeiro de cada cliente.
+- [x] Conectar Financeiro a todas as abas do perfil.
+- [ ] Validar Financeiro em desktop e celular.
