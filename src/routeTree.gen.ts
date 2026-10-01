@@ -19,6 +19,7 @@ import { Route as ClientesClienteIdIndexRouteImport } from './routes/clientes.$c
 import { Route as ClientesClienteIdAcompanhamentoRouteImport } from './routes/clientes.$clienteId.acompanhamento'
 import { Route as ClientesClienteIdArquivosRouteImport } from './routes/clientes.$clienteId.arquivos'
 import { Route as ClientesClienteIdCadastroRouteImport } from './routes/clientes.$clienteId.cadastro'
+import { Route as ClientesClienteIdFinanceiroRouteImport } from './routes/clientes.$clienteId.financeiro'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -73,6 +74,12 @@ const ClientesClienteIdCadastroRoute =
     path: '/cadastro',
     getParentRoute: () => ClientesClienteIdRoute,
   } as any)
+const ClientesClienteIdFinanceiroRoute =
+  ClientesClienteIdFinanceiroRouteImport.update({
+    id: '/financeiro',
+    path: '/financeiro',
+    getParentRoute: () => ClientesClienteIdRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -84,6 +91,7 @@ export interface FileRoutesByFullPath {
   '/clientes/$clienteId/acompanhamento': typeof ClientesClienteIdAcompanhamentoRoute
   '/clientes/$clienteId/arquivos': typeof ClientesClienteIdArquivosRoute
   '/clientes/$clienteId/cadastro': typeof ClientesClienteIdCadastroRoute
+  '/clientes/$clienteId/financeiro': typeof ClientesClienteIdFinanceiroRoute
   '/clientes/$clienteId/': typeof ClientesClienteIdIndexRoute
 }
 export interface FileRoutesByTo {
@@ -94,6 +102,7 @@ export interface FileRoutesByTo {
   '/clientes/$clienteId/acompanhamento': typeof ClientesClienteIdAcompanhamentoRoute
   '/clientes/$clienteId/arquivos': typeof ClientesClienteIdArquivosRoute
   '/clientes/$clienteId/cadastro': typeof ClientesClienteIdCadastroRoute
+  '/clientes/$clienteId/financeiro': typeof ClientesClienteIdFinanceiroRoute
   '/clientes/$clienteId': typeof ClientesClienteIdIndexRoute
 }
 export interface FileRoutesById {
@@ -107,6 +116,7 @@ export interface FileRoutesById {
   '/clientes/$clienteId/acompanhamento': typeof ClientesClienteIdAcompanhamentoRoute
   '/clientes/$clienteId/arquivos': typeof ClientesClienteIdArquivosRoute
   '/clientes/$clienteId/cadastro': typeof ClientesClienteIdCadastroRoute
+  '/clientes/$clienteId/financeiro': typeof ClientesClienteIdFinanceiroRoute
   '/clientes/$clienteId/': typeof ClientesClienteIdIndexRoute
 }
 export interface FileRouteTypes {
@@ -121,6 +131,7 @@ export interface FileRouteTypes {
     | '/clientes/$clienteId/acompanhamento'
     | '/clientes/$clienteId/arquivos'
     | '/clientes/$clienteId/cadastro'
+    | '/clientes/$clienteId/financeiro'
     | '/clientes/$clienteId/'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -131,6 +142,7 @@ export interface FileRouteTypes {
     | '/clientes/$clienteId/acompanhamento'
     | '/clientes/$clienteId/arquivos'
     | '/clientes/$clienteId/cadastro'
+    | '/clientes/$clienteId/financeiro'
     | '/clientes/$clienteId'
   id:
     | '__root__'
@@ -143,6 +155,7 @@ export interface FileRouteTypes {
     | '/clientes/$clienteId/acompanhamento'
     | '/clientes/$clienteId/arquivos'
     | '/clientes/$clienteId/cadastro'
+    | '/clientes/$clienteId/financeiro'
     | '/clientes/$clienteId/'
   fileRoutesById: FileRoutesById
 }
@@ -224,6 +237,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ClientesClienteIdCadastroRouteImport
       parentRoute: typeof ClientesClienteIdRoute
     }
+    '/clientes/$clienteId/financeiro': {
+      id: '/clientes/$clienteId/financeiro'
+      path: '/financeiro'
+      fullPath: '/clientes/$clienteId/financeiro'
+      preLoaderRoute: typeof ClientesClienteIdFinanceiroRouteImport
+      parentRoute: typeof ClientesClienteIdRoute
+    }
   }
 }
 
@@ -231,6 +251,7 @@ interface ClientesClienteIdRouteChildren {
   ClientesClienteIdAcompanhamentoRoute: typeof ClientesClienteIdAcompanhamentoRoute
   ClientesClienteIdArquivosRoute: typeof ClientesClienteIdArquivosRoute
   ClientesClienteIdCadastroRoute: typeof ClientesClienteIdCadastroRoute
+  ClientesClienteIdFinanceiroRoute: typeof ClientesClienteIdFinanceiroRoute
   ClientesClienteIdIndexRoute: typeof ClientesClienteIdIndexRoute
 }
 
@@ -238,6 +259,7 @@ const ClientesClienteIdRouteChildren: ClientesClienteIdRouteChildren = {
   ClientesClienteIdAcompanhamentoRoute: ClientesClienteIdAcompanhamentoRoute,
   ClientesClienteIdArquivosRoute: ClientesClienteIdArquivosRoute,
   ClientesClienteIdCadastroRoute: ClientesClienteIdCadastroRoute,
+  ClientesClienteIdFinanceiroRoute: ClientesClienteIdFinanceiroRoute,
   ClientesClienteIdIndexRoute: ClientesClienteIdIndexRoute,
 }
 
