@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import {
   ArrowDown,
   ArrowRight,
@@ -27,7 +27,14 @@ export const Route = createFileRoute("/financeiro/")({
   component: Financeiro,
 });
 
-const tabs = ["Painel", "Lançamentos", "Fluxo de Caixa", "A Pagar / A Receber", "Orçamento", "Entradas"];
+const tabs = [
+  { label: "Painel", to: "/financeiro" as const },
+  { label: "Lançamentos", to: "/financeiro/lancamentos" as const },
+  { label: "Fluxo de Caixa" },
+  { label: "A Pagar / A Receber" },
+  { label: "Orçamento" },
+  { label: "Entradas" },
+];
 
 const metrics = [
   { icon: Wallet, label: "Saldo atual", tag: "Hoje", value: "R$ 18.530", note: "Disponível em conta e aplicações", tone: "" },
@@ -234,13 +241,12 @@ function Financeiro() {
       </div>
 
       <nav className="mb-4 flex gap-1 overflow-x-auto border-b border-border" aria-label="Seções do financeiro">
-        {tabs.map((tab, i) => (
-          <button
-            key={tab}
-            className={`whitespace-nowrap border-b-2 px-3 pb-2 text-[13px] transition-colors ${i === 0 ? "border-primary font-medium text-primary" : "border-transparent text-muted-foreground hover:text-foreground"}`}
-          >
-            {tab}
-          </button>
+        {tabs.map((tab, i) => "to" in tab && tab.to ? (
+          <Link key={tab.label} to={tab.to} className={`whitespace-nowrap border-b-2 px-3 pb-2 text-[13px] transition-colors ${i === 0 ? "border-primary font-medium text-primary" : "border-transparent text-muted-foreground hover:text-foreground"}`}>
+            {tab.label}
+          </Link>
+        ) : (
+          <span key={tab.label} className="whitespace-nowrap border-b-2 border-transparent px-3 pb-2 text-[13px] text-muted-foreground">{tab.label}</span>
         ))}
       </nav>
 

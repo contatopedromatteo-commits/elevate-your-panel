@@ -15,3 +15,4 @@
 - Keep client performance tracking at `/clientes/$clienteId/acompanhamento`, using the shared client identity and profile navigation.
 - Keep the client document index at `/clientes/$clienteId/arquivos`; store access links rather than uploaded file binaries in this mock phase.
 - Keep client financial details at `/clientes/$clienteId/financeiro`, separating LeadPro receivables from client revenue used for commissions.
+- Keep the general Financeiro dashboard at `/financeiro` and transaction management at `/financeiro/lancamentos` so both views remain directly accessible.
