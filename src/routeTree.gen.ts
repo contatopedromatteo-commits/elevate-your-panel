@@ -15,6 +15,8 @@ import { Route as FinanceiroRouteImport } from './routes/financeiro'
 import { Route as ClientesIndexRouteImport } from './routes/clientes.index'
 import { Route as ClientesClienteIdRouteImport } from './routes/clientes.$clienteId'
 import { Route as ClientesCarteiraRouteImport } from './routes/clientes.carteira'
+import { Route as FinanceiroIndexRouteImport } from './routes/financeiro.index'
+import { Route as FinanceiroLancamentosRouteImport } from './routes/financeiro.lancamentos'
 import { Route as ClientesClienteIdIndexRouteImport } from './routes/clientes.$clienteId.index'
 import { Route as ClientesClienteIdAcompanhamentoRouteImport } from './routes/clientes.$clienteId.acompanhamento'
 import { Route as ClientesClienteIdArquivosRouteImport } from './routes/clientes.$clienteId.arquivos'
@@ -51,6 +53,16 @@ const ClientesCarteiraRoute = ClientesCarteiraRouteImport.update({
   path: '/carteira',
   getParentRoute: () => ClientesRoute,
 } as any)
+const FinanceiroIndexRoute = FinanceiroIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => FinanceiroRoute,
+} as any)
+const FinanceiroLancamentosRoute = FinanceiroLancamentosRouteImport.update({
+  id: '/lancamentos',
+  path: '/lancamentos',
+  getParentRoute: () => FinanceiroRoute,
+} as any)
 const ClientesClienteIdIndexRoute = ClientesClienteIdIndexRouteImport.update({
   id: '/',
   path: '/',
@@ -84,10 +96,12 @@ const ClientesClienteIdFinanceiroRoute =
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/clientes': typeof ClientesRouteWithChildren
-  '/financeiro': typeof FinanceiroRoute
+  '/financeiro': typeof FinanceiroRouteWithChildren
   '/clientes/$clienteId': typeof ClientesClienteIdRouteWithChildren
   '/clientes/carteira': typeof ClientesCarteiraRoute
+  '/financeiro/lancamentos': typeof FinanceiroLancamentosRoute
   '/clientes/': typeof ClientesIndexRoute
+  '/financeiro/': typeof FinanceiroIndexRoute
   '/clientes/$clienteId/acompanhamento': typeof ClientesClienteIdAcompanhamentoRoute
   '/clientes/$clienteId/arquivos': typeof ClientesClienteIdArquivosRoute
   '/clientes/$clienteId/cadastro': typeof ClientesClienteIdCadastroRoute
@@ -96,9 +110,10 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/financeiro': typeof FinanceiroRoute
   '/clientes/carteira': typeof ClientesCarteiraRoute
+  '/financeiro/lancamentos': typeof FinanceiroLancamentosRoute
   '/clientes': typeof ClientesIndexRoute
+  '/financeiro': typeof FinanceiroIndexRoute
   '/clientes/$clienteId/acompanhamento': typeof ClientesClienteIdAcompanhamentoRoute
   '/clientes/$clienteId/arquivos': typeof ClientesClienteIdArquivosRoute
   '/clientes/$clienteId/cadastro': typeof ClientesClienteIdCadastroRoute
@@ -109,10 +124,12 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/clientes': typeof ClientesRouteWithChildren
-  '/financeiro': typeof FinanceiroRoute
+  '/financeiro': typeof FinanceiroRouteWithChildren
   '/clientes/$clienteId': typeof ClientesClienteIdRouteWithChildren
   '/clientes/carteira': typeof ClientesCarteiraRoute
+  '/financeiro/lancamentos': typeof FinanceiroLancamentosRoute
   '/clientes/': typeof ClientesIndexRoute
+  '/financeiro/': typeof FinanceiroIndexRoute
   '/clientes/$clienteId/acompanhamento': typeof ClientesClienteIdAcompanhamentoRoute
   '/clientes/$clienteId/arquivos': typeof ClientesClienteIdArquivosRoute
   '/clientes/$clienteId/cadastro': typeof ClientesClienteIdCadastroRoute
@@ -127,7 +144,9 @@ export interface FileRouteTypes {
     | '/financeiro'
     | '/clientes/$clienteId'
     | '/clientes/carteira'
+    | '/financeiro/lancamentos'
     | '/clientes/'
+    | '/financeiro/'
     | '/clientes/$clienteId/acompanhamento'
     | '/clientes/$clienteId/arquivos'
     | '/clientes/$clienteId/cadastro'
@@ -136,9 +155,10 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
-    | '/financeiro'
     | '/clientes/carteira'
+    | '/financeiro/lancamentos'
     | '/clientes'
+    | '/financeiro'
     | '/clientes/$clienteId/acompanhamento'
     | '/clientes/$clienteId/arquivos'
     | '/clientes/$clienteId/cadastro'
@@ -151,7 +171,9 @@ export interface FileRouteTypes {
     | '/financeiro'
     | '/clientes/$clienteId'
     | '/clientes/carteira'
+    | '/financeiro/lancamentos'
     | '/clientes/'
+    | '/financeiro/'
     | '/clientes/$clienteId/acompanhamento'
     | '/clientes/$clienteId/arquivos'
     | '/clientes/$clienteId/cadastro'
@@ -162,7 +184,7 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   ClientesRoute: typeof ClientesRouteWithChildren
-  FinanceiroRoute: typeof FinanceiroRoute
+  FinanceiroRoute: typeof FinanceiroRouteWithChildren
 }
 
 declare module '@tanstack/react-router' {
@@ -208,6 +230,20 @@ declare module '@tanstack/react-router' {
       fullPath: '/clientes/carteira'
       preLoaderRoute: typeof ClientesCarteiraRouteImport
       parentRoute: typeof ClientesRoute
+    }
+    '/financeiro/': {
+      id: '/financeiro/'
+      path: '/'
+      fullPath: '/financeiro/'
+      preLoaderRoute: typeof FinanceiroIndexRouteImport
+      parentRoute: typeof FinanceiroRoute
+    }
+    '/financeiro/lancamentos': {
+      id: '/financeiro/lancamentos'
+      path: '/lancamentos'
+      fullPath: '/financeiro/lancamentos'
+      preLoaderRoute: typeof FinanceiroLancamentosRouteImport
+      parentRoute: typeof FinanceiroRoute
     }
     '/clientes/$clienteId/': {
       id: '/clientes/$clienteId/'
@@ -282,10 +318,24 @@ const ClientesRouteWithChildren = ClientesRoute._addFileChildren(
   ClientesRouteChildren,
 )
 
+interface FinanceiroRouteChildren {
+  FinanceiroLancamentosRoute: typeof FinanceiroLancamentosRoute
+  FinanceiroIndexRoute: typeof FinanceiroIndexRoute
+}
+
+const FinanceiroRouteChildren: FinanceiroRouteChildren = {
+  FinanceiroLancamentosRoute: FinanceiroLancamentosRoute,
+  FinanceiroIndexRoute: FinanceiroIndexRoute,
+}
+
+const FinanceiroRouteWithChildren = FinanceiroRoute._addFileChildren(
+  FinanceiroRouteChildren,
+)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   ClientesRoute: ClientesRouteWithChildren,
-  FinanceiroRoute: FinanceiroRoute,
+  FinanceiroRoute: FinanceiroRouteWithChildren,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
