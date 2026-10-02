@@ -16,6 +16,7 @@ import { Route as ClientesIndexRouteImport } from './routes/clientes.index'
 import { Route as ClientesClienteIdRouteImport } from './routes/clientes.$clienteId'
 import { Route as ClientesCarteiraRouteImport } from './routes/clientes.carteira'
 import { Route as FinanceiroIndexRouteImport } from './routes/financeiro.index'
+import { Route as FinanceiroLancamentosRouteImport } from './routes/financeiro.lancamentos'
 import { Route as ClientesClienteIdIndexRouteImport } from './routes/clientes.$clienteId.index'
 import { Route as ClientesClienteIdAcompanhamentoRouteImport } from './routes/clientes.$clienteId.acompanhamento'
 import { Route as ClientesClienteIdArquivosRouteImport } from './routes/clientes.$clienteId.arquivos'
@@ -57,6 +58,11 @@ const FinanceiroIndexRoute = FinanceiroIndexRouteImport.update({
   path: '/',
   getParentRoute: () => FinanceiroRoute,
 } as any)
+const FinanceiroLancamentosRoute = FinanceiroLancamentosRouteImport.update({
+  id: '/lancamentos',
+  path: '/lancamentos',
+  getParentRoute: () => FinanceiroRoute,
+} as any)
 const ClientesClienteIdIndexRoute = ClientesClienteIdIndexRouteImport.update({
   id: '/',
   path: '/',
@@ -93,6 +99,7 @@ export interface FileRoutesByFullPath {
   '/financeiro': typeof FinanceiroRouteWithChildren
   '/clientes/$clienteId': typeof ClientesClienteIdRouteWithChildren
   '/clientes/carteira': typeof ClientesCarteiraRoute
+  '/financeiro/lancamentos': typeof FinanceiroLancamentosRoute
   '/clientes/': typeof ClientesIndexRoute
   '/financeiro/': typeof FinanceiroIndexRoute
   '/clientes/$clienteId/acompanhamento': typeof ClientesClienteIdAcompanhamentoRoute
@@ -104,6 +111,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/clientes/carteira': typeof ClientesCarteiraRoute
+  '/financeiro/lancamentos': typeof FinanceiroLancamentosRoute
   '/clientes': typeof ClientesIndexRoute
   '/financeiro': typeof FinanceiroIndexRoute
   '/clientes/$clienteId/acompanhamento': typeof ClientesClienteIdAcompanhamentoRoute
@@ -119,6 +127,7 @@ export interface FileRoutesById {
   '/financeiro': typeof FinanceiroRouteWithChildren
   '/clientes/$clienteId': typeof ClientesClienteIdRouteWithChildren
   '/clientes/carteira': typeof ClientesCarteiraRoute
+  '/financeiro/lancamentos': typeof FinanceiroLancamentosRoute
   '/clientes/': typeof ClientesIndexRoute
   '/financeiro/': typeof FinanceiroIndexRoute
   '/clientes/$clienteId/acompanhamento': typeof ClientesClienteIdAcompanhamentoRoute
@@ -135,6 +144,7 @@ export interface FileRouteTypes {
     | '/financeiro'
     | '/clientes/$clienteId'
     | '/clientes/carteira'
+    | '/financeiro/lancamentos'
     | '/clientes/'
     | '/financeiro/'
     | '/clientes/$clienteId/acompanhamento'
@@ -146,6 +156,7 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/clientes/carteira'
+    | '/financeiro/lancamentos'
     | '/clientes'
     | '/financeiro'
     | '/clientes/$clienteId/acompanhamento'
@@ -160,6 +171,7 @@ export interface FileRouteTypes {
     | '/financeiro'
     | '/clientes/$clienteId'
     | '/clientes/carteira'
+    | '/financeiro/lancamentos'
     | '/clientes/'
     | '/financeiro/'
     | '/clientes/$clienteId/acompanhamento'
@@ -224,6 +236,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/financeiro/'
       preLoaderRoute: typeof FinanceiroIndexRouteImport
+      parentRoute: typeof FinanceiroRoute
+    }
+    '/financeiro/lancamentos': {
+      id: '/financeiro/lancamentos'
+      path: '/lancamentos'
+      fullPath: '/financeiro/lancamentos'
+      preLoaderRoute: typeof FinanceiroLancamentosRouteImport
       parentRoute: typeof FinanceiroRoute
     }
     '/clientes/$clienteId/': {
@@ -300,10 +319,12 @@ const ClientesRouteWithChildren = ClientesRoute._addFileChildren(
 )
 
 interface FinanceiroRouteChildren {
+  FinanceiroLancamentosRoute: typeof FinanceiroLancamentosRoute
   FinanceiroIndexRoute: typeof FinanceiroIndexRoute
 }
 
 const FinanceiroRouteChildren: FinanceiroRouteChildren = {
+  FinanceiroLancamentosRoute: FinanceiroLancamentosRoute,
   FinanceiroIndexRoute: FinanceiroIndexRoute,
 }
 
