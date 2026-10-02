@@ -13,7 +13,7 @@ import {
 import { AppShell } from "@/components/app-shell";
 import { Button } from "@/components/ui/button";
 
-export const Route = createFileRoute("/financeiro")({
+export const Route = createFileRoute("/financeiro/")({
   head: () => ({
     meta: [
       { title: "Financeiro — LeadPro" },
